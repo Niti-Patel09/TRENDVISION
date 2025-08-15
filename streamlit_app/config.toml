@@ -1,0 +1,7 @@
+[theme]
+base="dark"
+primaryColor="#00bfa6"       # teal accent
+backgroundColor="#0f1724"    # deep navy
+secondaryBackgroundColor="#0b1220"
+textColor="#e6eef6"
+font="sans serif"

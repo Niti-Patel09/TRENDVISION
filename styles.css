@@ -1,0 +1,125 @@
+/* ===============================
+   TrendSeer Global Styles
+   =============================== */
+:root {
+  --bg: #071229;
+  --card: #0f1726;
+  --muted: #94a3b8;
+  --accent: #00BFA6;
+  --accent-2: #7C3AED;
+  --text: #E6EEF6;
+  --glass: rgba(255,255,255,0.03);
+  --radius: 12px;
+}
+
+/* Global background & font */
+html, body, [class*="css"] {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+  background: var(--card) !important;
+}
+
+/* ===============================
+   Card Styling (Glassmorphism)
+   =============================== */
+.trend-card {
+  background: var(--glass);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+/* Card Hover Animation */
+.trend-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 191, 166, 0.4);
+}
+
+/* ===============================
+   KPI Styling
+   =============================== */
+.kpi-title {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.kpi-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: 0px 0px 8px rgba(0, 191, 166, 0.7);
+}
+
+/* ===============================
+   Buttons
+   =============================== */
+.stButton>button {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #071229;
+  border-radius: 10px;
+  padding: 8px 12px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-position 0.5s;
+  background-size: 200% auto;
+}
+.stButton>button:hover {
+  background-position: right center;
+}
+
+/* ===============================
+   Tabs
+   =============================== */
+.stTabs [role="tablist"] {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 6px;
+}
+.stTabs [role="tab"] {
+  color: var(--muted);
+  border-radius: var(--radius);
+  transition: background 0.3s;
+}
+.stTabs [role="tab"]:hover {
+  background: rgba(255,255,255,0.05);
+}
+.stTabs [aria-selected="true"] {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #fff !important;
+}
+
+/* ===============================
+   Responsive Tweaks
+   =============================== */
+@media (max-width:800px){
+  .kpi-value { font-size:18px; }
+}
+/* Table Styling */
+.stDataFrame, .ag-theme-streamlit {
+  background-color: var(--card) !important;
+  color: var(--text) !important;
+}
+/* Glassmorphism effect for cards */
+.trend-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.trend-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 30px rgba(0,0,0,0.4);
+}
+

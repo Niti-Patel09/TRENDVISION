@@ -1,0 +1,58 @@
+/* Dark gradient background */
+body, .stApp {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #f1f5f9;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Title styling */
+h1 {
+    font-size: 3rem !important;
+    font-weight: 800;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 15px rgba(0, 114, 255, 0.4);
+    animation: fadeInDown 1s ease-in-out;
+}
+
+/* KPI Cards with 3D Effect */
+[data-testid="metric-container"] {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    transform: perspective(1000px) rotateX(0deg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+[data-testid="metric-container"]:hover {
+    transform: perspective(1000px) rotateX(5deg) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 255, 255, 0.3);
+}
+
+/* Sidebar */
+.css-1d391kg {
+    background-color: rgba(30, 41, 59, 0.95) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+.css-1d391kg a {
+    color: #e2e8f0 !important;
+    font-weight: 500;
+    transition: 0.3s;
+}
+.css-1d391kg a:hover {
+    color: #38bdf8 !important;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.stApp {
+    animation: fadeIn 0.8s ease-in-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
