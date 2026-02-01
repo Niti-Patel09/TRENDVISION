@@ -1,187 +1,110 @@
-# TRENDVISION
+# 🚀 TrendVision AI
+**Real-Time Social Intelligence & Predictive Trend Analytics Platform**
 
-# **TrendVision**  
-_Real-Time Social Listening & Predictive Trend Analytics Platform_  
-
----
-
-## 📌 Overview  
-
-**TrendVision** is a **real-time social media monitoring and predictive analytics platform** that tracks discussions across platforms like **Reddit** (and optionally news sources) to:  
-
-- Monitor **emerging trends** before they go mainstream  
-- Analyze **public sentiment** using advanced **NLP & AI models**  
-- Visualize **topic popularity and engagement over time**  
-- Forecast **future trends** with machine learning  
-- Provide **actionable insights** for brands, marketers, and analysts  
+TrendVision is a high-end analytical dashboard designed to bridge the gap between raw social chatter and actionable market intelligence. By combining **Glassmorphic UI/UX** with advanced **Transformer-based NLP** and **Time-Series Forecasting**, TrendVision allows users to detect emerging signals before they go mainstream.
 
 ---
 
-## 🎯 Problem Statement  
+## ✨ Key Features
 
-In today’s digital-first world, **information spreads faster than ever**. Brands, investors, and researchers need to detect emerging trends **before competitors do**.  
+### 🤖 1. AI-Powered UI & UX
+- **Smart Personalization**: Adaptive interfaces that predict user intent based on data trends.
+- **Contextual Briefings**: Dynamic AI-generated summaries that change based on real-time sentiment spikes.
+- **Responsive Motion**: Purpose-driven micro-interactions and Lottie animations for a tactile, premium feel.
 
-**Challenges**:  
-- Social media data is **unstructured and noisy**  
-- Identifying **true signals** from the noise is difficult  
-- Understanding **public sentiment** requires advanced NLP  
-- Manual monitoring is **time-consuming and incomplete**  
+### 🧊 2. Modern Design Language
+- **Glassmorphism**: Semi-transparent panels with backdrop-blur effects for visual depth.
+- **Neumorphism**: Subtle shadows and highlights creating a sleek, futuristic mobile-friendly interface.
+- **Interactive Visuals**: High-fidelity charts using Plotly and WordCloud for intuitive data exploration.
 
-**TrendVision** solves this by **automating trend detection, sentiment analysis, and forecasting** in one platform.  
+### 🧠 3. Advanced Analytics Pipeline
+- **Keyword Extraction**: Powered by **KeyBERT** (Sentence-Transformers) for context-aware trend detection.
+- **Sentiment Analysis**: Hybrid engine using **TextBlob** for speed and **DistilBERT** for deep semantic accuracy.
+- **Predictive Forecasting**: Utilizes **Facebook Prophet** to model community engagement and predict future volume.
+- **Topic Modeling**: Optional **BERTopic** integration for latent theme discovery.
 
----
-
-## 🚀 Key Features  
-
-- **Real-Time Data Collection** from Reddit & optional news sources  
-- **Sentiment Analysis** using VADER & Transformers  
-- **Keyword Extraction** & Topic Clustering with BERTopic  
-- **Trend Forecasting** using Facebook Prophet / ARIMA  
-- **Multi-Page Interactive Dashboard** with Streamlit  
-- **Slack Integration** for automated trend reports  
-
----
-
-## 🛠️ Tech Stack  
-
-| Layer              | Technology |
-|--------------------|------------|
-| **Frontend**       | Streamlit, CSS custom theming |
-| **Backend**        | Python 3.11+ |
-| **Data Collection**| Reddit API (PRAW), NewsAPI |
-| **Data Processing**| Pandas, NumPy |
-| **NLP**            | Transformers, VADER, NLTK, SentenceTransformers |
-| **Topic Modeling** | BERTopic, UMAP, HDBSCAN, Gensim |
-| **Forecasting**    | Prophet, ARIMA |
-| **Visualization**  | Plotly, Matplotlib, WordCloud |
-| **Integration**    | Slack SDK, Python-Dotenv |
-| **Deployment**     | Streamlit Cloud / Docker / Local |
+### 📡 4. Multi-Channel Intelligence
+- **Reddit Scraper**: Asynchronous ingestion via PRAW across multiple subreddits.
+- **News Monitor**: Real-time RSS integration to correlate social trends with global news events.
+- **Community Benchmarking**: Side-by-side comparison of subreddit performance and sentiment.
 
 ---
 
-## 📂 Project Structure  
+## 🛠️ Tech Stack
 
-```
-
-TrendVision/
-│── app.py                  # Main data collection script
-│── ui.py                   # Homepage dashboard
-│── styles.css              # Global CSS theme
-│── requirements.txt        # Python dependencies
-│── .env                    # API keys and config (local only)
-│
-├── pages/                  # Streamlit pages
-│   ├── 1\_📊\_Overview\.py
-│   ├── 2\_🔍\_Keyword\_Analysis.py
-│   ├── 3\_🔮\_Forecast.py
-│   ├── 4\_⚙️\_Settings.py
-│
-├── data/                   # Saved datasets
-│   ├── reddit\_posts.csv
-│   ├── sentiment.csv
-│
-├── nlp/                    # NLP processing
-│   ├── keywords.py
-│   ├── sentiment.py
-│
-└── forecast/               # Forecasting scripts
-├── forecast.py
-
-````
+| Layer | Technology |
+| :--- | :--- |
+| **Frontend** | Streamlit, Custom CSS (Glassmorphism), Lottie |
+| **Data Ingestion** | PRAW (Reddit API), Feedparser (RSS) |
+| **NLP** | KeyBERT, DistilBERT, TextBlob, BERTopic |
+| **Forecasting** | Facebook Prophet |
+| **Visualization** | Plotly, WordCloud, Streamlit-AgGrid |
+| **Integration** | Slack SDK, Python-Dotenv |
 
 ---
 
-## ⚙️ Installation & Setup  
+## ⚙️ Installation & Setup
 
-### 1️⃣ Clone the Repository  
+### 1. Clone & Install
 ```bash
 git clone https://github.com/yourusername/trendvision.git
 cd trendvision
-````
-
-### 2️⃣ Create Virtual Environment & Install Dependencies
-
-```bash
-python -m venv venv
-venv\Scripts\activate    # Windows
-# or
-source venv/bin/activate # Mac/Linux
-
 pip install -r requirements.txt
 ```
 
-### 3️⃣ Setup Environment Variables
+### 2. Configure Reddit API
+1. Visit Reddit App Preferences.
+2. Scroll to the bottom and click **"are you a developer? create an app..."**.
+3. **Name**: `TrendVision` | **Type**: `script` | **Redirect URI**: `http://localhost:8080`.
+4. Copy your **Client ID** and **Secret** into the `.env` file.
 
-Rename `.env.template` → `.env` and fill in:
-
-```ini
-REDDIT_CLIENT_ID=your_client_id
-REDDIT_CLIENT_SECRET=your_client_secret
-REDDIT_USER_AGENT=trendvision:v1.0 (by /u/yourusername)
-REDDIT_SUBREDDITS=technology,ai,news
-REDDIT_LIMIT=200
-
-NEWS_API_KEY=your_newsapi_key
-
-SLACK_BOT_TOKEN=your_slack_token
-SLACK_CHANNEL=#your-channel
-
-USE_TRANSFORMER=false
-USE_BERTOPIC=false
-```
-
-### 4️⃣ Run the Data Pipeline
-
+### 3. Environment Variables (`.env`)
 ```bash
-python app.py
-python nlp/keywords.py
-python nlp/sentiment.py
-python forecast/forecast.py
+REDDIT_CLIENT_ID=your_id
+REDDIT_CLIENT_SECRET=your_secret
+REDDIT_USER_AGENT=TrendVision/1.0
+SUBREDDITS=technology+ai+news
+USE_TRANSFORMER=false  # Set true for DistilBERT accuracy
 ```
 
-### 5️⃣ Launch the Dashboard
-
+### 4. Launch the Platform
 ```bash
-streamlit run ui.py
+streamlit run UI.py
+```
+*Note: On first run, navigate to **Settings** and click **Initialize System** to build your local database.*
+
+---
+
+## 📂 Project Structure
+```text
+TrendVision/
+├── UI.py                   # Main Dashboard & AI Logic
+├── styles.css              # Glassmorphic Design System
+├── app.py                  # Reddit Data Ingestion
+├── nlp/                    # Keyword & Sentiment Engines
+├── forecast/               # Prophet Forecasting Logic
+├── pages/                  # Modular Feature Pages
+│   ├── 1_Overview.py
+│   ├── 2_Deep_Dive.py
+│   ├── 5_News_Monitor.py
+│   └── 6_Comparison.py
+└── data/                   # Local Data Store (CSV)
 ```
 
 ---
 
-## 📊 Sample Output
+## 💡 Troubleshooting
 
-* **Dashboard:** KPI cards, charts, forecasts
-* **WordCloud:** Visual representation of trending topics
-* **Forecast Graph:** Predicted popularity trends
-* **Slack Report:** Automated insights in your channel
-
----
-
-## 💡 Potential Use Cases
-
-* **Brand Monitoring** – Track how people talk about your company
-* **Crisis Detection** – Spot negative sentiment spikes early
-* **Market Research** – Identify consumer interest shifts
-* **Investment Intelligence** – Detect sectors gaining online buzz
-* **Content Strategy** – Target trending topics for higher engagement
-
----
-
-## 📈 Future Enhancements
-
-* Add **Twitter / YouTube data collection**
-* Enable **real-time streaming mode** with WebSockets
-* Multi-language sentiment analysis
-* Advanced **interactive visualizations** (D3.js integration)
-* Export insights to **Excel / PDF / BI Tools**
+### Windows Long Path Error
+If you encounter `[Errno 2]` during Prophet installation:
+1. Open **PowerShell** as Administrator.
+2. Run this command to enable long paths:
+   ```powershell
+   New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
+   ```
+3. Restart your terminal and try `pip install -r requirements.txt` again.
 
 ---
 
 ## 📜 License
-
-This project is licensed under the **MIT License** – free to use, modify, and distribute.
-
----
-
-
-
-
+This project is licensed under the MIT License. Built with ❤️ for the Open Source community.
