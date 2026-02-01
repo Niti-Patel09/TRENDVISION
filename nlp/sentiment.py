@@ -1,7 +1,10 @@
 # nlp/sentiment.py
-import os, time
+import os, time, sys
 import pandas as pd
 from dotenv import load_dotenv
+
+sys.stdout.reconfigure(encoding='utf-8')
+
 load_dotenv()
 
 USE_TRANSFORMER = os.getenv("USE_TRANSFORMER", "false").lower() in ("1","true","yes")
@@ -21,7 +24,8 @@ if USE_TRANSFORMER:
         return _pipe
     def transformer_sent(text):
         try:
-            out = get_pipe(text[:512])[0]
+            pipe = get_pipe()
+            out = pipe(text[:512])[0]
             score = float(out.get("score",0.0))
             return score if out.get("label","")=="POSITIVE" else -score
         except:

@@ -1,125 +1,88 @@
-/* ===============================
-   TrendSeer Global Styles
-   =============================== */
+/* Modern TrendVision Design System */
 :root {
-  --bg: #071229;
-  --card: #0f1726;
-  --muted: #94a3b8;
-  --accent: #00BFA6;
-  --accent-2: #7C3AED;
-  --text: #E6EEF6;
-  --glass: rgba(255,255,255,0.03);
-  --radius: 12px;
+    --primary: #8B5CF6;
+    --secondary: #10B981;
+    --accent: #F59E0B;
+    --bg-dark: #020617;
+    --glass-bg: rgba(15, 23, 42, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text-main: #F8FAFC;
+    --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Global background & font */
-html, body, [class*="css"] {
-  background: var(--bg) !important;
-  color: var(--text) !important;
-  font-family: 'Inter', sans-serif !important;
+/* Glassmorphism Card */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 20px;
+    transition: var(--transition-smooth);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
 }
 
-/* Sidebar */
-[data-testid="stSidebar"] {
-  background: var(--card) !important;
+.glass-card:hover {
+    transform: translateY(-5px) scale(1.01);
+    border-color: var(--primary);
+    background: rgba(30, 41, 59, 0.7);
+    box-shadow: 0 20px 50px -15px rgba(139, 92, 246, 0.2);
 }
 
-/* ===============================
-   Card Styling (Glassmorphism)
-   =============================== */
-.trend-card {
-  background: var(--glass);
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-  border-radius: var(--radius);
-  padding: 14px;
-  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
-  border: 1px solid rgba(255,255,255,0.05);
-  transition: transform .25s ease, box-shadow .25s ease;
+/* Neumorphic Accents for Buttons */
+.stButton > button {
+    background: linear-gradient(145deg, #1e293b, #020617) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 12px !important;
+    color: var(--text-main) !important;
+    padding: 10px 24px !important;
+    transition: var(--transition-smooth) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600 !important;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.3), -2px -2px 10px rgba(255,255,255,0.02) !important;
 }
 
-/* Card Hover Animation */
-.trend-card:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 24px rgba(0, 191, 166, 0.4);
+.stButton > button:hover {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4) !important;
+    transform: translateY(-2px);
 }
 
-/* ===============================
-   KPI Styling
-   =============================== */
-.kpi-title {
-  font-size: 12px;
-  color: var(--muted);
-  margin-bottom: 6px;
-}
-.kpi-value {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--accent);
-  text-shadow: 0px 0px 8px rgba(0, 191, 166, 0.7);
+/* AI Insight Pulse Animation */
+@keyframes pulse-border {
+    0% { border-color: rgba(124, 58, 237, 0.4); }
+    50% { border-color: rgba(124, 58, 237, 1); }
+    100% { border-color: rgba(124, 58, 237, 0.4); }
 }
 
-/* ===============================
-   Buttons
-   =============================== */
-.stButton>button {
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  color: #071229;
-  border-radius: 10px;
-  padding: 8px 12px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-position 0.5s;
-  background-size: 200% auto;
-}
-.stButton>button:hover {
-  background-position: right center;
+.ai-insight-box {
+    border-left: 5px solid var(--primary);
+    border-radius: 8px 20px 20px 8px;
+    padding: 20px;
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0.1), transparent);
+    animation: pulse-border 3s infinite;
 }
 
-/* ===============================
-   Tabs
-   =============================== */
-.stTabs [role="tablist"] {
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 6px;
-}
-.stTabs [role="tab"] {
-  color: var(--muted);
-  border-radius: var(--radius);
-  transition: background 0.3s;
-}
-.stTabs [role="tab"]:hover {
-  background: rgba(255,255,255,0.05);
-}
-.stTabs [aria-selected="true"] {
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  color: #fff !important;
+/* Smooth Page Transitions */
+.stApp {
+    animation: fadeIn 0.8s ease-out;
 }
 
-/* ===============================
-   Responsive Tweaks
-   =============================== */
-@media (max-width:800px){
-  .kpi-value { font-size:18px; }
-}
-/* Table Styling */
-.stDataFrame, .ag-theme-streamlit {
-  background-color: var(--card) !important;
-  color: var(--text) !important;
-}
-/* Glassmorphism effect for cards */
-.trend-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  backdrop-filter: blur(8px);
-  padding: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.trend-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 6px 30px rgba(0,0,0,0.4);
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
+/* Metric Styling */
+[data-testid="stMetricValue"] {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800 !important;
+    background: linear-gradient(90deg, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Hide Streamlit Branding */
+#MainMenu, footer, header {visibility: hidden;}
+}

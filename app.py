@@ -1,49 +1,78 @@
-# app.py — Reddit scraper (writes data/reddit_posts.csv)
-import os, time
+# app.py — Main data ingestion script (Reddit Scraper)
+import praw
 import pandas as pd
+import os
+import sys
 from dotenv import load_dotenv
 
+# Load environment variables
 load_dotenv()
+
 REDDIT_CLIENT_ID = os.getenv("REDDIT_CLIENT_ID")
 REDDIT_CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
-REDDIT_USER_AGENT = os.getenv("REDDIT_USER_AGENT", "trendseer:v1 (by /u/unknown)")
-SUBREDDITS = os.getenv("REDDIT_SUBREDDITS", "technology,ai").split(",")
-LIMIT = int(os.getenv("REDDIT_LIMIT", "200"))
+REDDIT_USER_AGENT = os.getenv("REDDIT_USER_AGENT", "TrendVision/1.0")
+SUBREDDITS = os.getenv("SUBREDDITS", "technology").split("+")
 
-if not REDDIT_CLIENT_ID or not REDDIT_CLIENT_SECRET:
-    raise RuntimeError("Missing REDDIT_CLIENT_ID/REDDIT_CLIENT_SECRET in .env")
+def fetch_reddit_data():
+    print("🚀 Starting Reddit data fetch...")
+    
+    if not REDDIT_CLIENT_ID:
+        print("❌ Error: REDDIT_CLIENT_ID is missing in .env file.")
+    if not REDDIT_CLIENT_SECRET:
+        print("❌ Error: REDDIT_CLIENT_SECRET is missing in .env file.")
 
-import praw
-reddit = praw.Reddit(client_id=REDDIT_CLIENT_ID,
-                     client_secret=REDDIT_CLIENT_SECRET,
-                     user_agent=REDDIT_USER_AGENT)
+    if not REDDIT_CLIENT_ID or not REDDIT_CLIENT_SECRET:
+        return
 
-posts = []
-for sr in SUBREDDITS:
-    sr = sr.strip()
     try:
-        subreddit = reddit.subreddit(sr)
-        for p in subreddit.hot(limit=LIMIT):
-            posts.append({
-                "id": getattr(p, "id", ""),
-                "subreddit": sr,
-                "title": getattr(p, "title", "")[:2000],
-                "selftext": getattr(p, "selftext", "")[:4000],
-                "created_utc": getattr(p, "created_utc", 0),
-                "score": getattr(p, "score", 0),
-                "num_comments": getattr(p, "num_comments", 0),
-                "url": getattr(p, "url", ""),
-                "author": str(getattr(p, "author", ""))[:100]
-            })
+        reddit = praw.Reddit(
+            client_id=REDDIT_CLIENT_ID,
+            client_secret=REDDIT_CLIENT_SECRET,
+            user_agent=REDDIT_USER_AGENT
+        )
     except Exception as e:
-        print(f"Error scraping /r/{sr}: {e}")
+        print(f"❌ Error initializing Reddit client: {e}")
+        return
 
-df = pd.DataFrame(posts)
-if df.empty:
-    print("No posts fetched.")
-else:
-    # dedupe by id
-    df = df.drop_duplicates(subset=["id"])
+    all_posts = []
+    for sub in SUBREDDITS:
+        print(f"   Scanning r/{sub}...")
+        try:
+            subreddit = reddit.subreddit(sub)
+            # Fetch Hot and New posts
+            limit = 50
+            for post in subreddit.hot(limit=limit):
+                all_posts.append(process_post(post, sub))
+            for post in subreddit.new(limit=limit):
+                all_posts.append(process_post(post, sub))
+        except Exception as e:
+            print(f"   ⚠️ Could not fetch r/{sub}: {e}")
+            if "401" in str(e):
+                print("      👉 Tip: 401 means 'Unauthorized'. Check your Client ID and Secret.")
+
+    if not all_posts:
+        print("⚠️ No posts found. Check your internet connection or API credentials.")
+        return
+
+    df = pd.DataFrame(all_posts)
+    df = df.drop_duplicates(subset=['id'])
+    
     os.makedirs("data", exist_ok=True)
     df.to_csv("data/reddit_posts.csv", index=False)
-    print(f"✅ Saved {len(df)} posts to data/reddit_posts.csv")
+    print(f"✅ Saved {len(df)} unique posts to data/reddit_posts.csv")
+
+def process_post(post, sub):
+    return {
+        "id": post.id,
+        "title": post.title,
+        "score": post.score,
+        "url": post.url,
+        "num_comments": post.num_comments,
+        "created_utc": post.created_utc,
+        "selftext": post.selftext,
+        "subreddit": sub
+    }
+
+if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding='utf-8')
+    fetch_reddit_data()

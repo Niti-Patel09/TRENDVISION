@@ -2,6 +2,9 @@
 from keybert import KeyBERT
 import pandas as pd
 import os
+import sys
+
+sys.stdout.reconfigure(encoding='utf-8')
 
 os.makedirs("data", exist_ok=True)
 path = "data/reddit_posts.csv"
