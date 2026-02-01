@@ -1,8 +1,3 @@
-<div align="center">
-  <img src="https://img.shields.io/badge/Python-3.9+-blue?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white" />
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/UI-Glassmorphism-purple?style=for-the-badge" />
 
   # 🚀 TrendVision AI
   **The Ultimate Social Intelligence & Predictive Analytics Suite**
