@@ -16,13 +16,10 @@ SUBREDDITS = os.getenv("SUBREDDITS", "technology").split("+")
 def fetch_reddit_data():
     print("🚀 Starting Reddit data fetch...")
     
-    if not REDDIT_CLIENT_ID:
-        print("❌ Error: REDDIT_CLIENT_ID is missing in .env file.")
-    if not REDDIT_CLIENT_SECRET:
-        print("❌ Error: REDDIT_CLIENT_SECRET is missing in .env file.")
-
     if not REDDIT_CLIENT_ID or not REDDIT_CLIENT_SECRET:
-        return
+        sys.exit("❌ Error: Reddit API credentials (ID or Secret) are missing in .env file.")
+    
+    print(f"   Using User-Agent: {REDDIT_USER_AGENT}")
 
     try:
         reddit = praw.Reddit(

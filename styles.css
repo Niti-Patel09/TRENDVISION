@@ -1,13 +1,13 @@
 /* Modern TrendVision Design System */
 :root {
-    --primary: #8B5CF6;
-    --secondary: #10B981;
+    --primary: #7C3AED;
+    --secondary: #00BFA6;
     --accent: #F59E0B;
-    --bg-dark: #020617;
-    --glass-bg: rgba(15, 23, 42, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --text-main: #F8FAFC;
-    --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    --bg-dark: #0f172a;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-main: #f8fafc;
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Glassmorphism Card */
@@ -17,16 +17,16 @@
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
-    padding: 20px;
+    padding: 24px;
     transition: var(--transition-smooth);
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .glass-card:hover {
-    transform: translateY(-5px) scale(1.01);
+    transform: translateY(-8px);
     border-color: var(--primary);
-    background: rgba(30, 41, 59, 0.7);
-    box-shadow: 0 20px 50px -15px rgba(139, 92, 246, 0.2);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 12px 40px 0 rgba(124, 58, 237, 0.2);
 }
 
 /* Neumorphic Accents for Buttons */
@@ -85,4 +85,3 @@
 
 /* Hide Streamlit Branding */
 #MainMenu, footer, header {visibility: hidden;}
-}
