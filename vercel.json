@@ -2,15 +2,19 @@
   "version": 2,
   "builds": [
     {
-      "src": "UI.py",
-      "use": "@vercel/python",
-      "config": { 
-        "maxDuration": 60,
-        "runtime": "python3.11"
-      }
+      "src": "Dockerfile",
+      "use": "@vercel/docker"
     }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "UI.py" }
-  ]
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "env": {
+    "STREAMLIT_SERVER_PORT": "8501",
+    "STREAMLIT_SERVER_HEADLESS": "true",
+    "STREAMLIT_BROWSER_GATHER_USAGE_STATS": "false"
+  }
 }
