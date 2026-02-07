@@ -16,7 +16,10 @@ import time
 load_dotenv()
 
 # Ensure data directory exists for cloud environments
-os.makedirs("data", exist_ok=True)
+try:
+    os.makedirs("data", exist_ok=True)
+except OSError:
+    pass # Handle read-only filesystems like Vercel
 
 # Function to load Lottie animations
 def load_lottieurl(url):

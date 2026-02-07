@@ -4,7 +4,7 @@
     {
       "src": "UI.py",
       "use": "@vercel/python",
-      "config": { "runtime": "python3.11" }
+      "config": { "maxDuration": 60 }
     }
   ],
   "routes": [
