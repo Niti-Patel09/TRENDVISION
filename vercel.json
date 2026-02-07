@@ -1,15 +1,14 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "UI.py",
-      "use": "@vercel/python"
+  "functions": {
+    "UI.py": {
+      "runtime": "@vercel/python"
     }
-  ],
-  "routes": [
+  },
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "UI.py"
+      "source": "/(.*)",
+      "destination": "UI.py"
     }
   ]
 }
