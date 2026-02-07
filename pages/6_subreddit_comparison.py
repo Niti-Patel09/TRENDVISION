@@ -1,4 +1,3 @@
-# pages/6_subreddit_comparison.py
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -41,14 +40,14 @@ with c1:
     fig1 = px.pie(sub_stats, values='Post Volume', names='Subreddit', hole=0.4, 
                   color_discrete_sequence=px.colors.sequential.Teal)
     fig1.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='#fafafa')
-    st.plotly_chart(fig1, use_container_width=True)
+    st.plotly_chart(fig1, width='stretch')
 
 with c2:
     st.markdown("#### ❤️ Sentiment by Community")
     fig2 = px.bar(sub_stats, x='Subreddit', y='Avg Sentiment', color='Avg Sentiment',
                   color_continuous_scale=['#EF4444', '#10B981'])
     fig2.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='#fafafa')
-    st.plotly_chart(fig2, use_container_width=True)
+    st.plotly_chart(fig2, width='stretch')
 
 st.markdown("### 📋 Detailed Metrics")
 st.dataframe(sub_stats.style.background_gradient(cmap="Purples", subset=['Avg Score', 'Avg Comments']), use_container_width=True)

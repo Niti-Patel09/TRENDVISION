@@ -15,6 +15,9 @@ import time
 # Load environment variables
 load_dotenv()
 
+# Ensure data directory exists for local/persistent environments
+os.makedirs("data", exist_ok=True)
+
 # Function to load Lottie animations
 def load_lottieurl(url):
     r = requests.get(url)
@@ -78,9 +81,12 @@ else:
                 st.stop()
 
             # 2. NLP & Forecast
-            subprocess.run([sys.executable, "nlp/keywords.py"])
-            subprocess.run([sys.executable, "nlp/sentiment.py"])
-            subprocess.run([sys.executable, "forecast/forecast.py"])
+            try:
+                subprocess.run([sys.executable, os.path.join("nlp", "keywords.py")], check=True)
+                subprocess.run([sys.executable, os.path.join("nlp", "sentiment.py")], check=True)
+                subprocess.run([sys.executable, os.path.join("forecast", "forecast.py")], check=True)
+            except subprocess.CalledProcessError as e:
+                st.error(f"Pipeline step failed: {e}")
         st.success("Pipeline finished! Reloading...")
         time.sleep(2)
         st.rerun()
@@ -154,17 +160,17 @@ with col_dash_1:
         }
     ))
     fig_gauge.update_layout(paper_bgcolor = "rgba(0,0,0,0)", font = {'color': "white", 'family': "Inter"}, height=300, margin=dict(l=20, r=20, t=50, b=20))
-    st.plotly_chart(fig_gauge, use_container_width=True)
+    st.plotly_chart(fig_gauge, width='stretch')
 
 with col_dash_2:
     # Activity Trend
     daily_counts = df.groupby('date').size().reset_index(name='counts')
     fig_trend = px.area(daily_counts, x='date', y='counts', title="📈 Activity Volume Trend", color_discrete_sequence=['#00BFA6'])
     fig_trend.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='#fafafa', height=300)
-    st.plotly_chart(fig_trend, use_container_width=True)
+    st.plotly_chart(fig_trend, width='stretch')
 
 st.markdown("### 📡 Recent Signals")
-st.dataframe(df[['date', 'title', 'subreddit', 'score', 'sentiment']].sort_values(by='date', ascending=False).head(10), use_container_width=True)
+st.dataframe(df[['date', 'title', 'subreddit', 'score', 'sentiment']].sort_values(by='date', ascending=False).head(10), width='stretch')
 
 # Instructions
 st.markdown("### 🧭 Navigation")

@@ -32,7 +32,7 @@ st.caption("Predicting community engagement for the next 7 days using Prophet AI
 fig = px.line(df, x='ds', y='yhat', markers=True)
 fig.update_traces(line_color='#8B5CF6', line_width=4, marker=dict(size=10, color='#10B981', line=dict(width=2, color='white')))
 fig.update_layout(xaxis_title="", yaxis_title="Predicted Posts", plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='#fafafa', height=450)
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width='stretch')
 st.markdown('</div>', unsafe_allow_html=True)
 
 with st.expander("View Raw Forecast Data"):
