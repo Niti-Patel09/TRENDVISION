@@ -7,6 +7,7 @@ ENV PYTHONUNBUFFERED=1
 # Streamlit specific environment variables
 ENV STREAMLIT_SERVER_PORT=8501
 ENV STREAMLIT_SERVER_HEADLESS=true
+ENV STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
 
 WORKDIR /app
 
@@ -27,8 +28,5 @@ COPY . .
 RUN mkdir -p data
 
 EXPOSE 8501
-
-# Healthcheck to ensure the Streamlit service is responsive
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
 
 CMD ["streamlit", "run", "UI.py", "--server.address=0.0.0.0", "--server.enableCORS=false", "--server.enableXsrfProtection=false"]

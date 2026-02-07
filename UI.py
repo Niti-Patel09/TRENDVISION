@@ -15,6 +15,9 @@ import time
 # Load environment variables
 load_dotenv()
 
+# Ensure data directory exists for cloud environments
+os.makedirs("data", exist_ok=True)
+
 # Function to load Lottie animations
 def load_lottieurl(url):
     r = requests.get(url)
